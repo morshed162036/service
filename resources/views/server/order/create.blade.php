@@ -43,7 +43,7 @@
     <div class="content-header-left col-12 mb-2 mt-1">
         <div class="row breadcrumbs-top">
             <div class="col-12">
-                <h5 class="content-header-title float-left pr-1 mb-0">Order Create</h5>
+                <h5 class="content-header-title float-left pr-1 mb-0">Service Order form</h5>
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb p-0 mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i
@@ -51,7 +51,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="{{ route('order.index') }}">OrderList</a>
                         </li>
-                        <li class="breadcrumb-item active">Order Create
+                        <li class="breadcrumb-item active">Order form
                         </li>
                     </ol>
                 </div>
@@ -80,7 +80,7 @@
                         <form action="{{ route('order.store') }}" method="post" enctype="multipart/form-data"> @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-5">
                                         <fieldset class="mt-2">
                                             <h5>Service <span class="star">*</span></h5>
                                             <div class="input-group">
@@ -91,57 +91,27 @@
                                                 <select name="service_id" id="" class="form-control">
                                                     <option value="">Select</option>
                                                     @foreach ($services as $service )
-                                                    <option value="{{ $service->id }}">{{ $service->title }}</option>
+                                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </fieldset>
-                                    </div>
-                                    <div class="col-md-5">
                                         <fieldset class="mt-2">
-                                            <h5>Name <span class="star">*</span></h5>
+                                            <h5>Worker <span class="star">*</span></h5>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-Createon1"><i
                                                             class="bx bx-spreadsheet"></i></span>
                                                 </div>
-                                                <input type="text" name="name" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <fieldset class="mt-2">
-                                            <h5>Phone <span class="star">*</span></h5>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-Createon1"><i
-                                                            class="bx bx-spreadsheet"></i></span>
-                                                </div>
-                                                <input type="text" name="phone" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <fieldset class="mt-2">
-                                            <h5>Email</h5>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-Createon1"><i
-                                                            class="bx bx-spreadsheet"></i></span>
-                                                </div>
-                                                <input type="text" name="email" class="form-control">
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <fieldset class="mt-2">
-                                            <h5>Address <span class="star">*</span></h5>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-Createon1"><i
-                                                            class="bx bx-spreadsheet"></i></span>
-                                                </div>
-                                                <input type="text" name="address" class="form-control" required>
+                                                <select name="employee_id" id="" class="form-control" required>
+                                                    <option value="">Select</option>
+                                                    @if ($employees)
+                                                        @foreach ($employees as $employee )
+                                                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                                        @endforeach
+                                                    @endif
+
+                                                </select>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -153,19 +123,7 @@
                                                     <span class="input-group-text" id="basic-Createon1"><i
                                                             class="bx bx-spreadsheet"></i></span>
                                                 </div>
-                                                <input type="date" name="date" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <fieldset class="mt-2">
-                                            <h5>Remarks</h5>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-Createon1"><i
-                                                            class="bx bx-spreadsheet"></i></span>
-                                                </div>
-                                                <input type="text" name="remarks" class="form-control">
+                                                <input type="date" name="order_date" class="form-control" required>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -193,15 +151,15 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-5">
                                         <fieldset class="mt-2">
-                                            <h5>service description <span class="star">*</span></h5>
+                                            <h5>Online Pay Amount</h5>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-Createon1"><i
                                                             class="bx bx-spreadsheet"></i></span>
                                                 </div>
-                                                <input type="text" name="description" class="form-control" required>
+                                                <input type="number" name="price" class="form-control" required>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -251,14 +209,6 @@
 <script>
     ClassicEditor
         .create(document.querySelector('#description'))
-        .catch(error => {
-            console.error(error);
-        });
-
-</script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('#our_plan'))
         .catch(error => {
             console.error(error);
         });

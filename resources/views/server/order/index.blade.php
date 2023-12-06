@@ -64,11 +64,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Order List</h5>
-                            <div class="heading-elements">
+                            {{-- <div class="heading-elements">
                                 <ul class="list-inline mb-0">
                                     <li class="ml-2"><a href="{{ route('order.create') }}" class="btn btn-primary">+ Create</a></li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
@@ -76,30 +76,35 @@
                                     <table class="table zero-configuration">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Phone</th>
-                                                <th>address</th>
-                                                <th>date</th>
-                                                <th>Service category</th>
-                                                <th>Pricing Plan</th>
-                                                <th>Service Descriptin</th>
-                                                <th>status</th>
-                                                <th>Action</th>
+                                                <th>Customer</th>
+                                                <th>Service</th>
+                                                <th>Worker</th>
+                                                <th>Order_Date</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Price</th>
+                                                <th>Decision By</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if ($orders)
                                                @foreach($orders as $order)
                                                     <tr>
-                                                        <td class="text-bold-600">{{ $order->name }}</td>
-                                                        <td>{{ $order->phone }}</td>
-                                                        <td>{{ $order->address }}</td>
-                                                        <td>{{ $order->date }}</td>
-                                                        <td class="text-bold-600 text-primary">{{ $order->service->title}}</td>
-                                                        <td class="text-bold-600 text-primary">{{ $order->plan->title}}</td>
-                                                        <td>{{ $order->description }}</td>
+                                                        <td class="text-bold-600">{{ $order->customer->name }}</td>
+                                                        <td class="text-bold-600">{{ $order->service->name }}</td>
+                                                        <td>{{ $order->employee->name }}</td>
+                                                        <td>{{ $order->order_date }}</td>
+                                                        <td>{{ $order->start_time }}</td>
+                                                        <td>{{ $order->end_time }}</td>
+                                                        <td>{{ $order->price }}</td>
+                                                        <td>@if ($order->approve)
+                                                            {{ $order->approve->name }}
+                                                            @else
+                                                            Pending
+                                                            @endif</td>
                                                         <td>{{ $order->status }}</td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <div class="dropdown">
                                                                 <span class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></span>
                                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -110,7 +115,7 @@
 
                                                                 </div>
                                                             </div>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                @endforeach
                                             @else
@@ -119,15 +124,13 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Phone</th>
-                                                <th>address</th>
-                                                <th>date</th>
-                                                <th>Service category</th>
-                                                <th>Pricing Plan</th>
-                                                <th>Service Descriptin</th>
-                                                <th>status</th>
-                                                <th>Action</th>
+                                                <th>Service</th>
+                                                <th>Worker</th>
+                                                <th>Order_Date</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </tfoot>
                                     </table>

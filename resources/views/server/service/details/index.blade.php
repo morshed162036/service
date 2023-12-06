@@ -26,7 +26,7 @@
         a label{
             cursor: pointer;
         }
-    </style> 
+    </style>
 @endsection
 
 @section('content')
@@ -63,11 +63,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Service Detail List</h5>
+                            @if (Auth::user()->type == 'Admin')
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
-                                    <li class="ml-2"><a href="{{ route('service-detail.create') }}" class="btn btn-primary">+ Create</a></li>
+                                    <li class="ml-2"><a href="{{ route('service.create') }}" class="btn btn-primary">+ Create</a></li>
                                 </ul>
                             </div>
+                            @endif
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
@@ -77,8 +79,9 @@
                                             <tr>
                                                 <th>Image</th>
                                                 <th>Service</th>
+                                                <th>Price</th>
                                                 <th>Description</th>
-                                                <th>Our Plan</th>
+                                                <th>Category</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -87,25 +90,29 @@
                                                 @foreach ($details as $detail)
                                                     <tr>
                                                         <td><img src="{{ asset('images/service/'.$detail->image) }}" alt="" height="150px"></td>
-                                                        <td class="text-bold-600" >@if ($detail->service)
-                                                            {{ $detail->service->title }}
-                                                        @endif</td>
+                                                        <td>{{ $detail->name }}</td>
+                                                        <td>{{ $detail->price }}</td>
                                                         <td>{{ $detail->description }}</td>
-                                                        <td>{{ $detail->our_plan }}</td>
-                                                        
+                                                        <td class="text-bold-600" >@if ($detail->category)
+                                                            {{ $detail->category->name }}
+                                                        @endif</td>
+
                                                         <td>
                                                             <div class="dropdown">
                                                                 <span class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></span>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="{{ route('service-detail.edit',$detail->id) }}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
-                                                                    <form action="{{ route('service-detail.destroy',$detail->id) }}" method="post"> @csrf @method('Delete')
+                                                                    <a class="dropdown-item" href="{{ route('service.show',$detail->id) }}"><i class="bx bx-edit-alt mr-1"></i>Worker List</a>
+                                                                    @if (Auth::user()->type == 'Admin')
+                                                                    <a class="dropdown-item" href="{{ route('service.edit',$detail->id) }}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
+                                                                    @endif
+                                                                    {{-- <form action="{{ route('service.destroy',$detail->id) }}" method="post"> @csrf @method('Delete')
                                                                         <button type="submit" class="dropdown-item"><i class="bx bx-trash mr-1"></i> delete</button>
-                                                                    </form>
-                                                                    
+                                                                    </form> --}}
+
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                    </tr>   
+                                                    </tr>
                                                 @endforeach
                                             @else
                                                 {{ 'No Data Found' }}
@@ -115,8 +122,9 @@
                                             <tr>
                                                 <th>Image</th>
                                                 <th>Service</th>
+                                                <th>Price</th>
                                                 <th>Description</th>
-                                                <th>Our Plan</th>
+                                                <th>Category</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -134,7 +142,7 @@
 
 @section('js')
 
-    
+
     <!-- BEGIN: Vendor JS-->
     <script src="{{ asset('admin_template/app-assets/vendors/js/vendors.min.js') }}"></script>
     <script src="{{ asset('admin_template/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js') }}"></script>

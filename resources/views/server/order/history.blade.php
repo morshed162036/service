@@ -3,8 +3,7 @@
 @section('css')
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/app-assets/vendors/css/vendors.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('admin_template/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -17,15 +16,14 @@
     <!-- END: Theme CSS-->
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('admin_template/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/assets/css/style.css') }}">
     <!-- END: Custom CSS-->
     <style>
-        a label {
+        a label{
             cursor: pointer;
         }
     </style>
@@ -33,8 +31,8 @@
 
 @section('content')
 
-
     <div class="content-header row">
+
         <div class="content-header-left col-12 mb-2 mt-1">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
@@ -46,12 +44,12 @@
                                 </button>
                         </div>
                     @endif
-                    <h5 class="content-header-title float-left pr-1 mb-0">Category Table</h5>
+                    <h5 class="content-header-title float-left pr-1 mb-0">Order</h5>
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb p-0 mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
                             </li>
-                            <li class="breadcrumb-item active">Category
+                            <li class="breadcrumb-item active">Order
                             </li>
                         </ol>
                     </div>
@@ -65,15 +63,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Category List</h5>
-                            @if (Auth::user()->type == 'Admin')
-                                <div class="heading-elements">
-                                    <ul class="list-inline mb-0">
-                                        <li class="ml-2"><a href="{{ route('category.create') }}" class="btn btn-primary">+ Create</a></li>
-                                    </ul>
-                                </div>
-                            @endif
-
+                            <h5 class="card-title">Order List</h5>
+                            {{-- <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li class="ml-2"><a href="{{ route('order.create') }}" class="btn btn-primary">+ Create</a></li>
+                                </ul>
+                            </div> --}}
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
@@ -81,47 +76,53 @@
                                     <table class="table zero-configuration">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                {{-- <th>Status</th> --}}
-                                                @if (Auth::user()->type == 'Admin')
-                                                    <th>Action</th>
-                                                @endif
-
+                                                <th>Service</th>
+                                                <th>Worker</th>
+                                                <th>Order_Date</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($categories)
-                                                @foreach ($categories as $category)
+                                            @if ($orders)
+                                               @foreach($orders as $order)
                                                     <tr>
-                                                        <td class="text-bold-600" >{{ $category->name }}</td>
-                                                        {{-- <td>{{ $category->status }}</td> --}}
-                                                        @if (Auth::user()->type == 'Admin')
-                                                        <td>
+                                                        <td class="text-bold-600">{{ $order->service->name }}</td>
+                                                        <td>{{ $order->employee->name }}</td>
+                                                        <td>{{ $order->order_date }}</td>
+                                                        <td>{{ $order->start_time }}</td>
+                                                        <td>{{ $order->end_time }}</td>
+                                                        <td>{{ $order->price }}</td>
+                                                        <td>{{ $order->status }}</td>
+                                                        {{-- <td>
                                                             <div class="dropdown">
                                                                 <span class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></span>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="{{ route('category.edit',$category->id) }}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
-                                                                    {{-- <form action="{{ route('category.destroy',$category->id) }}" method="post"> @csrf @method('Delete')
+                                                                    <a class="dropdown-item" href="{{ route('order.edit',$order->id) }}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
+                                                                    <form action="{{ route('order.destroy',$order->id) }}" method="post"> @csrf @method('Delete')
                                                                         <button type="submit" class="dropdown-item"><i class="bx bx-trash mr-1"></i> delete</button>
-                                                                    </form> --}}
+                                                                    </form>
 
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                        @endif
+                                                        </td> --}}
                                                     </tr>
-                                                @endforeach
+                                               @endforeach
                                             @else
                                                 {{ 'No Data Found' }}
                                             @endif
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Title</th>
-                                                {{-- <th>Status</th> --}}
-                                                @if (Auth::user()->type == 'Admin')
-                                                    <th>Action</th>
-                                                @endif
+                                                <th>Service</th>
+                                                <th>Worker</th>
+                                                <th>Order_Date</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -137,6 +138,8 @@
 @endsection
 
 @section('js')
+
+
     <!-- BEGIN: Vendor JS-->
     <script src="{{ asset('admin_template/app-assets/vendors/js/vendors.min.js') }}"></script>
     <script src="{{ asset('admin_template/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js') }}"></script>
@@ -146,8 +149,7 @@
 
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{ asset('admin_template/app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
-    <script src="{{ asset('admin_template/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js') }}">
-    </script>
+    <script src="{{ asset('admin_template/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('admin_template/app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('admin_template/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('admin_template/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
@@ -166,38 +168,5 @@
     <!-- BEGIN: Page JS-->
     <script src="{{ asset('admin_template/app-assets/js/scripts/datatables/datatable.js') }}"></script>
     <!-- END: Page JS-->
-    {{-- <script>
-        $(document).ready(function() {
-            $(document).on("click", ".updateCategoryStatus", function() {
-                var status = $(this).children("label").attr("status");
-                var category_id = $(this).attr("category_id");
-
-                $.ajax({
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                    },
-                    type: "post",
-                    url: "{{ route('updateCategoryStatus') }}",
-                    data: {
-                        status: status,
-                        category_id: category_id
-                    },
-                    success: function(resp) {
-                        if (resp["status"] == 'Inactive') {
-                            $("#category-" + category_id).html(
-                                "<label class='badge badge-danger' status='Inactive'>Inactive</label>"
-                            );
-                        } else if (resp["status"] == 'Active') {
-                            $("#category-" + category_id).html(
-                                "<label class='badge badge-success' status='Active'>Active</label>"
-                            );
-                        }
-                    },
-                    error: function() {
-                        alert("Error");
-                    },
-                });
-            });
-        })
-    </script> --}}
 @endsection
+

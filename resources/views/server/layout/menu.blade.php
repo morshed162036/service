@@ -182,8 +182,8 @@
                                 class="dropdown-toggle nav-link dropdown-user-link" href="#"
                                 data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none">
-                                    {{--  <span
-                                        class="user-name">{{ Auth::guard('web')->user()->name }}</span>  --}}
+                                     <span
+                                        class="user-name">{{ Auth::guard('web')->user()->name }}</span>
                                          {{-- <span
                                         class="user-status text-muted">@if (Auth::guard('web')->user()->designation)
                                             {{ Auth::guard('web')->user()->designation->title }}
@@ -232,21 +232,51 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation"
                 data-icon-style="">
-
-                <li class=" navigation-header"><span>Admin view View</span>
+            @if (Auth::user()->type == 'Admin')
+                <li class=" navigation-header"><span>Admin view</span>
                 </li>
                 <li class=" nav-item"><a href="{{route('category.index')}}"><i class="bx bx-globe"></i><span
                             class="menu-title">category</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="bx bx-globe"></i><span
+                <li class=" nav-item"><a href="{{ route('service.index') }}"><i class="bx bx-globe"></i><span
                             class="menu-title">services</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="bx bx-globe"></i><span
+                <li class=" nav-item"><a href="{{ route('employee.index') }}"><i class="bx bx-globe"></i><span
                             class="menu-title">worker</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="bx bx-globe"></i><span
+                <li class=" nav-item"><a href="{{ route('customer.index') }}"><i class="bx bx-globe"></i><span
                             class="menu-title">customer</span></a>
                 </li>
+                <li class=" nav-item"><a href="{{ route('order.index') }}"><i class="bx bx-globe"></i><span
+                            class="menu-title">Order list</span></a>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="bx bx-globe"></i><span
+                            class="menu-title">Order Approval</span></a>
+                </li>
+            @endif
+            @if (Auth::user()->type == 'Customer')
+                <li class=" navigation-header"><span>Customer view</span>
+                </li>
+                <li class=" nav-item"><a href="{{route('category.index')}}"><i class="bx bx-globe"></i><span
+                            class="menu-title">category</span></a>
+                </li>
+                <li class=" nav-item"><a href="{{ route('service.index') }}"><i class="bx bx-globe"></i><span
+                            class="menu-title">services</span></a>
+                </li>
+                <li class=" nav-item"><a href="{{ route('employee.index') }}"><i class="bx bx-globe"></i><span
+                            class="menu-title">worker</span></a>
+                </li>
+                {{-- <li class=" nav-item"><a href="{{ route('customer.index') }}"><i class="bx bx-globe"></i><span
+                            class="menu-title">customer</span></a>
+                </li> --}}
+                <li class=" nav-item"><a href="{{ route('customer.history') }}"><i class="bx bx-globe"></i><span
+                    class="menu-title">Order history</span></a>
+                </li>
+                <li class=" nav-item"><a href="{{ route('order.create') }}"><i class="bx bx-globe"></i><span
+                    class="menu-title">Order form</span></a>
+                </li>
+            @endif
+
 
                 {{--  <li class=" navigation-header"><span>order</span>
                 </li>

@@ -46,12 +46,12 @@
                                 </button>
                         </div>
                     @endif
-                    <h5 class="content-header-title float-left pr-1 mb-0">Category Table</h5>
+                    <h5 class="content-header-title float-left pr-1 mb-0">Worker Table</h5>
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb p-0 mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
                             </li>
-                            <li class="breadcrumb-item active">Category
+                            <li class="breadcrumb-item active">Worker
                             </li>
                         </ol>
                     </div>
@@ -65,15 +65,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Category List</h5>
-                            @if (Auth::user()->type == 'Admin')
-                                <div class="heading-elements">
-                                    <ul class="list-inline mb-0">
-                                        <li class="ml-2"><a href="{{ route('category.create') }}" class="btn btn-primary">+ Create</a></li>
-                                    </ul>
-                                </div>
-                            @endif
-
+                            <h5 class="card-title">Worker List</h5>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li class="ml-2"><a href="{{ route('employee.create') }}" class="btn btn-primary">+ Create</a></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
@@ -82,33 +79,31 @@
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                {{-- <th>Status</th> --}}
-                                                @if (Auth::user()->type == 'Admin')
-                                                    <th>Action</th>
-                                                @endif
-
+                                                <th>Contact</th>
+                                                <th>Address</th>
+                                                <th>Service</th>
+                                                <th>Work Status</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($categories)
-                                                @foreach ($categories as $category)
+                                            @if ($employees)
+                                                @foreach ($employees as $employee)
                                                     <tr>
-                                                        <td class="text-bold-600" >{{ $category->name }}</td>
-                                                        {{-- <td>{{ $category->status }}</td> --}}
-                                                        @if (Auth::user()->type == 'Admin')
-                                                        <td>
+                                                        <td class="text-bold-600" >{{ $employee->user->name }}</td>
+                                                        <td> Email: {{ $employee->user->email }} <br>
+                                                             Phone: {{ $employee->user->phone }}</td>
+                                                        <td>{{ $employee->user->address }}</td>
+                                                        <td>{{ $employee->service->name }}</td>
+                                                        <td>{{ $employee->status }}</td>
+                                                        {{-- <td>
                                                             <div class="dropdown">
                                                                 <span class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></span>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="{{ route('category.edit',$category->id) }}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
-                                                                    {{-- <form action="{{ route('category.destroy',$category->id) }}" method="post"> @csrf @method('Delete')
-                                                                        <button type="submit" class="dropdown-item"><i class="bx bx-trash mr-1"></i> delete</button>
-                                                                    </form> --}}
-
+                                                                    <a class="dropdown-item" href="{{ route('employee.edit',$employee->id) }}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                        @endif
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             @else
@@ -117,11 +112,12 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Title</th>
-                                                {{-- <th>Status</th> --}}
-                                                @if (Auth::user()->type == 'Admin')
-                                                    <th>Action</th>
-                                                @endif
+                                                <th>Name</th>
+                                                <th>Contact</th>
+                                                <th>Address</th>
+                                                <th>Service</th>
+                                                <th>Work Status</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </tfoot>
                                     </table>

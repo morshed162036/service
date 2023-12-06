@@ -38,14 +38,14 @@
     <div class="content-header-left col-12 mb-2 mt-1">
         <div class="row breadcrumbs-top">
             <div class="col-12">
-                <h5 class="content-header-title float-left pr-1 mb-0">Service Create</h5>
+                <h5 class="content-header-title float-left pr-1 mb-0">Employee</h5>
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb p-0 mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item"><a href="{{ route('service.index') }}">Services</a>
+                        <li class="breadcrumb-item"><a href="{{ route('employee.index') }}">Employees</a>
                         </li>
-                        <li class="breadcrumb-item active">Service Create
+                        <li class="breadcrumb-item active">Employee Create
                         </li>
                     </ol>
                 </div>
@@ -71,7 +71,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <form action="{{ route('service.store') }}" method="post" enctype="multipart/form-data"> @csrf
+                        <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data"> @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-10">
@@ -88,32 +88,41 @@
                                         <img id="output">
 
                                         <fieldset class="mt-2">
-                                            <h5>Service Name <span class="star">*</span></h5>
-                                            <input name="name" id="name" class="form-control" required>
+                                            <h5>Worker Name <span class="star">*</span></h5>
+                                            <input type="text" name="name" id="name" class="form-control" required>
+                                        </fieldset>
+                                        <fieldset class="mt-2">
+                                            <h5>Worker Email <span class="star">*</span></h5>
+                                            <input type="email" name="email" id="email" class="form-control" required>
+                                        </fieldset>
+                                        <fieldset class="mt-2">
+                                            <h5>Worker Phone <span class="star">*</span></h5>
+                                            <input type="text" name="phone" id="phone" class="form-control" required>
+                                        </fieldset>
+                                        <fieldset class="mt-2">
+                                            <h5>Address<span class="star">*</span></h5>
+                                            <input name="address" id="address" class="form-control">
                                         </fieldset>
                                         <fieldset class="mt-2">
 
-                                            <h5>Category <span class="star">*</span></h5>
+                                            <h5>Service <span class="star">*</span></h5>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-Createon1"><i class="bx bx-spreadsheet"></i></span>
                                                 </div>
-                                               <select name="category_id" id="" class="form-control">
+                                               <select name="service_id" id="" class="form-control">
                                                     <option value="">Select</option>
-                                                    @foreach ($categories as $category )
-                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @foreach ($services as $service )
+                                                        <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                     @endforeach
                                                </select>
                                             </div>
                                         </fieldset>
-                                        <fieldset class="mt-2">
-                                            <h5>Price <span class="star">*</span></h5>
-                                            <input name="price" id="price" class="form-control" required>
-                                        </fieldset>
-                                        <fieldset class="mt-2">
+                                        {{-- <fieldset class="mt-2">
                                             <h5>Description <span class="star">*</span></h5>
                                             <textarea name="description" id="description"></textarea>
-                                        </fieldset>
+                                        </fieldset> --}}
+                                        <input type="hidden" name="type" value="Employee">
 
                                         <button type="submit" class="btn btn-primary mt-2 btn-lg mx-1">Create</button>
                                     </div>

@@ -70,7 +70,7 @@ class AdminController extends Controller
                 'password' => 'required',
             ]);
 
-            if(Auth::guard('web')->attempt(['email'=>$data['email'],'password'=>$data['password'],'status'=>'Active','type'=>'Admin'])){
+            if(Auth::guard('web')->attempt(['email'=>$data['email'],'password'=>$data['password']])){
                 return redirect('dashboard');
                 }
             else{
